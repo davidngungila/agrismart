@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
 
@@ -14,12 +15,14 @@ class AuthProvider with ChangeNotifier {
   String? get error => _error;
 
   AuthProvider() {
-    checkAuthStatus();
+    // Don't call checkAuthStatus here - it's handled by AuthWrapper
+    // to avoid calling notifyListeners during build phase
   }
 
   Future<void> checkAuthStatus() async {
     _isLoading = true;
-    notifyListeners();
+    // Don't notify here to avoid calling during build phase
+    // We'll notify after the check is complete
 
     try {
       final isAuth = await _authService.checkAuthStatus();
@@ -30,7 +33,10 @@ class AuthProvider with ChangeNotifier {
       _error = e.toString();
     } finally {
       _isLoading = false;
-      notifyListeners();
+      // Use addPostFrameCallback to ensure notifyListeners is called after build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifyListeners();
+      });
     }
   }
 

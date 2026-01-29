@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'network_settings_screen.dart';
+import 'time_settings_screen.dart';
+import 'storage_settings_screen.dart';
 
 class DeviceSettingsScreen extends StatefulWidget {
   final String deviceId;
@@ -334,7 +337,15 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                     subtitle: const Text('Configure Wi-Fi connection'),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     onTap: () {
-                      // Navigate to network settings
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => NetworkSettingsScreen(
+                            deviceId: widget.deviceId,
+                            deviceName: widget.deviceName,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   const Divider(height: 1),
@@ -344,7 +355,15 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                     subtitle: const Text('Set timezone and sync'),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     onTap: () {
-                      // Navigate to time settings
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => TimeSettingsScreen(
+                            deviceId: widget.deviceId,
+                            deviceName: widget.deviceName,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   const Divider(height: 1),
@@ -354,7 +373,15 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                     subtitle: const Text('Manage device storage'),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     onTap: () {
-                      // Navigate to storage settings
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => StorageSettingsScreen(
+                            deviceId: widget.deviceId,
+                            deviceName: widget.deviceName,
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ],
